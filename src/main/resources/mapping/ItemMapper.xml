@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ruci.dao.ItemMapper">
+
+    <resultMap id="itemMap" type="com.ruci.domain.Item">
+        <id property="tid" column="tid" />
+        <result property="uid" column="uid" />
+        <result property="title" column="title" />
+        <result property="price" column="price" />
+        <result property="descrption" column="descrption" />
+        <result property="sales" column="sales" />
+        <result property="img_url" column="imgUrl" />
+        <result property="create_date" column="createDate" />
+    </resultMap>
+
+    <select id="selectByIdFormList" parameterType="string" resultMap="itemMap">
+        SELECT * FROM item
+    </select>
+    <update id="updateByTId" parameterType="com.ruci.domain.Item">
+        UPDATE item SET sales = sales - 1 WHERE tid= #{tid,jdbcType=INTEGER}
+    </update>
+    <select id="selectByUidFormList" parameterType="string" resultMap="itemMap">
+        SELECT tid FROM item WHERE uid = #{uid,jdbcType=INTEGER}
+    </select>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ruci.dao.RiLoginMapper">
+
+    <resultMap id="userMap" type="com.ruci.domain.RiLogin">
+        <id property="uid" column="uid" />
+        <result property="login_name" column="loginName" />
+        <result property="password" column="password" />
+        <collection property="riRoles" ofType="com.ruci.domain.RiRole">
+            <id property="rid" column="rid" />
+            <result property="role_name" column="roleName" />
+            <result property="sort" column="sort" />
+            <result property="create_date" column="createDate" />
+            <result property="update_date" column="updateDate" />
+            <result property="description" column="description" />
+            <collection property="permissions" ofType="com.ruci.domain.Permission">
+                <id property="pid" column="pid" />
+                <result property="name" column="name"/>
+                <result property="url" column="url" />
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findByUsername" parameterType="string" resultMap="userMap">
+        SELECT u.*, r.*, p.*
+        FROM ri_login u
+                 INNER JOIN user_role ur ON ur.uid = u.uid
+                 INNER JOIN ri_role r ON r.rid = ur.rid
+                 INNER JOIN permission_role pr ON pr.rid = r.rid
+                 INNER JOIN permission p ON pr.pid = p.pid
+        WHERE u.login_name = #{login_name}
+    </select>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="userMap">
+        select
+        login_name,password
+        from ri_login
+        where login_name = #{login_name}
+    </select>
+    <!--<insert id="insertBy" parameterType="com.ruci.domain.RiLogin" keyProperty="id" useGeneratedKeys="true">-->
+        <!--insert into ri_login (login_name,password)-->
+        <!--values (#{loginName},#{password})-->
+    <!--</insert>-->
+    <insert id="insertBy" parameterType="com.ruci.domain.RiLogin" keyProperty="id" useGeneratedKeys="true">
+        insert into ri_login
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="login_name != null">
+                login_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="riRoles != null">
+                riRoles,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="login_name != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCAHR},
+            </if>
+            <if test="riRoles != null">
+                #{riRoles,jdbcType=VARCAHR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

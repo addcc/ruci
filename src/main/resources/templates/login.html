@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Signin Template for Bootstrap</title>
+		<!-- Bootstrap core CSS -->
+		<link th:href="@{/dist/css/bootstrap.min.css}" href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link th:href="@{/dist/css/signin.css}" href="dist/css/signin.css" rel="stylesheet">
+		<!--<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+	</head>
+
+	<body class="text-center">
+		<form class="form-signin" action="/tologin" th:action="@{/tologin}"  method="post">
+			<img class="mb-4" th:src="@{/dist/img/bootstrap-solid.svg}" href="dist/img/bootstrap-solid.svg" alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">欢迎登录</h1>
+			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+			<label class="sr-only">Username</label>
+			<input type="text" class="form-control" placeholder="请输入账号" name="username" id="username" th:value="${loginParam.username}">
+			<br>
+			<label class="sr-only">Password</label>
+			<input type="password" class="form-control" placeholder="请输入密码" name="password" id="password" th:value="${loginParam.password}">
+			<div class="checkbox mb-3">
+				<label class="form-control">
+          <input type="checkbox" value="remember-me"> 记住我
+        </label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" >登录</button>
+			<a th:href="@{/tosava}" href="/tosava" >还没账号？去注册</a>
+			<p class="mt-5 mb-3 text-muted">©2019</p>
+		</form>
+
+	</body>
+
+</html>

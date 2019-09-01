@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ruci.dao.PermissionRoleMapper">
+
+    <resultMap id="roleMap" type="com.ruci.domain.PermissionRole">
+        <result property="pid" column="pid" />
+        <result property="rid" column="rid" />
+    </resultMap>
+    <delete id="deleteByPid" parameterType="java.lang.Integer">
+        delete from user_role
+        where pid = #{pid,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByUid" parameterType="java.lang.Integer">
+        delete from user_role
+        where uid = #{uid,jdbcType=INTEGER}
+    </delete>
+
+
+</mapper>

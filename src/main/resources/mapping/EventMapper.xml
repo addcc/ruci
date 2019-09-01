@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ruci.dao.EventMapper">
+
+    <resultMap id="eventMap" type="com.ruci.domain.Event">
+        <id property="item_id" column="itemId" />
+        <result property="event_price" column="eventPrice" />
+        <result property="start_date" column="startDate" />
+        <result property="end_date" column="endDate" />
+        <result property="stoct" column="stoct" />
+    </resultMap>
+
+    <select id="selectByIdFormList" parameterType="string" resultMap="eventMap">
+        SELECT * FROM event
+    </select>
+    <update id="updateByItermId" parameterType="com.ruci.domain.Event">
+        UPDATE  event SET stoct = stoct - 1 WHERE item_id= #{itemId,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

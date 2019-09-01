@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Signin Template for Bootstrap</title>
+		<!-- Bootstrap core CSS -->
+		<link href="dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="dist/css/signin.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	</head>
+
+	<body class="text-center">
+		<form class="form-signin" >
+			<img class="mb-4" src="dist/img/bootstrap-solid.svg"  alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">用户注册</h1>
+			<label class="sr-only">Username</label>
+			<input type="text" class="form-control" placeholder="请输入账号" name="username" id="username">
+			<br>
+			<label class="sr-only">Pass</label>
+			<input type="password" class="form-control" placeholder="请输入密码" name="pass" id="pass">
+			<label class="sr-only">Password</label>
+			<input type="password" class="form-control" placeholder="请再次输入密码" name="password" id="password">
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit" id="sava" >注册</button>
+			<a href="login.html" >已有账号？去登录</a>
+			<p class="mt-5 mb-3 text-muted">©2019</p>
+		</form>
+
+	</body>
+<script>
+    jQuery(document).ready(function () {
+
+
+
+        $("#sava").on("click",function () {
+            var username= $("#username").val();
+            var pass= $("#pass").val();
+            var password= $("#password").val();
+            if(username==null ||username==""){
+                alert("账号不能为空");
+                return false;
+            }
+            if(pass==null ||pass==""){
+                alert("密码不能为空");
+                return false;
+            }
+            if(password==null ||password==""){
+                alert("密码不能为空");
+                return false;
+            }else{
+                console.log(name,pass,password)
+                $.ajax({
+                    type:"POST",
+                    // contentType:"application/x-www-form-urlencoded",
+                    url:"http://127.0.0.1:8081/sava",
+                    data:{
+                        "username":username,
+						"pass":pass,
+                        "password":password
+                    },
+                    success:function (data){
+                        if(data.code==200){
+                            console.log(data,'data')
+                            alert("注册成功");
+                            window.location.href="login.html";
+                        }else{
+                            alert("注册失败，原因为"+data.responseJSON.message);
+                        }
+                    },
+                    error:function (data){
+                        console.log(data)
+                        alert("注册失败，原因为"+data.responseJSON.message);
+                    }
+
+                });
+			}
+
+
+            return false;
+        });
+    });
+</script>
+
+</html>

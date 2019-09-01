@@ -1,0 +1,16 @@
+mybatis-plus:
+  mapper-locations: classpath:mapping/*.xml
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ruci?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: admin
+    driver-class-name: com.mysql.jdbc.Driver
+    #druid配置
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  servlet:
+    multipart:
+      max-file-size: 10
+      max-request-size: 100
